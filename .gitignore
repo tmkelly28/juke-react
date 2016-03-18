@@ -1,0 +1,5 @@
+.DS_Store
+server/env/development.js
+server/audio
+node_modules
+some_music_files
