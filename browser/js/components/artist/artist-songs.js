@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import SongList from '../album/song-list';
+import SongList from '../song-list/song-list';
 import ArtistStore from '../../stores/artist-store';
 
 export default (props) => {

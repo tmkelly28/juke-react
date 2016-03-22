@@ -3,7 +3,7 @@
 import React from 'react';
 import AlbumStore from '../../stores/album-store';
 import StoreWatchMixin from '../../mixins/store-watch-mixin';
-import SongList from './song-list';
+import SongList from '../song-list/song-list';
 import AlbumHeader from './album-header';
 import actions from '../../actions/app-actions';
 

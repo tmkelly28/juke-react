@@ -27318,7 +27318,7 @@
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
-	var _songList = __webpack_require__(254);
+	var _songList = __webpack_require__(265);
 
 	var _songList2 = _interopRequireDefault(_songList);
 
@@ -27354,135 +27354,8 @@
 	exports.default = (0, _storeWatchMixin2.default)(Album, _albumStore2.default, getAlbum, _appActions2.default.getAlbumById);
 
 /***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _songRow = __webpack_require__(255);
-
-	var _songRow2 = _interopRequireDefault(_songRow);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    'table',
-	    { className: 'table' },
-	    _react2.default.createElement(
-	      'thead',
-	      null,
-	      _react2.default.createElement(
-	        'tr',
-	        null,
-	        _react2.default.createElement('th', null),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Name'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Artists'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Genres'
-	        )
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'tbody',
-	      null,
-	      props.songs.map(function (song) {
-	        return _react2.default.createElement(_songRow2.default, { key: song._id, song: song, songList: props.songs });
-	      })
-	    )
-	  );
-	};
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _playerActions = __webpack_require__(227);
-
-	var _playerActions2 = _interopRequireDefault(_playerActions);
-
-	var _playerStore = __webpack_require__(220);
-
-	var _playerStore2 = _interopRequireDefault(_playerStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-
-	  var isCurrentSong = _playerStore2.default.getCurrentSong() && _playerStore2.default.getCurrentSong()._id === props.song._id,
-	      isCurrentlyPlaying = isCurrentSong && _playerStore2.default.isPlaying();
-
-	  function toggle(song, songList) {
-	    if (isCurrentlyPlaying) _playerActions2.default.pauseSong();else if (isCurrentSong) _playerActions2.default.resumeSong();else _playerActions2.default.startSong(song, songList);
-	  }
-
-	  return _react2.default.createElement(
-	    'tr',
-	    null,
-	    _react2.default.createElement(
-	      'td',
-	      null,
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: toggle.bind(undefined, props.song, props.songList), className: 'btn btn-default btn-s' },
-	        isCurrentlyPlaying ? null : _react2.default.createElement('span', { className: 'glyphicon glyphicon-play' }),
-	        isCurrentlyPlaying ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-pause' }) : null
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'td',
-	      null,
-	      props.song.name
-	    ),
-	    _react2.default.createElement(
-	      'td',
-	      null,
-	      props.song.artists.map(function (artist) {
-	        return _react2.default.createElement(
-	          'span',
-	          { key: artist._id },
-	          artist.name,
-	          ' '
-	        );
-	      })
-	    ),
-	    _react2.default.createElement(
-	      'td',
-	      null,
-	      props.song.genres.join(', ')
-	    )
-	  );
-	};
-
-/***/ },
+/* 254 */,
+/* 255 */,
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27797,7 +27670,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _songList = __webpack_require__(254);
+	var _songList = __webpack_require__(265);
 
 	var _songList2 = _interopRequireDefault(_songList);
 
@@ -27918,6 +27791,135 @@
 
 	    return _class;
 	  }(_react2.default.Component);
+	};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _songRow = __webpack_require__(266);
+
+	var _songRow2 = _interopRequireDefault(_songRow);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'table',
+	    { className: 'table' },
+	    _react2.default.createElement(
+	      'thead',
+	      null,
+	      _react2.default.createElement(
+	        'tr',
+	        null,
+	        _react2.default.createElement('th', null),
+	        _react2.default.createElement(
+	          'th',
+	          null,
+	          'Name'
+	        ),
+	        _react2.default.createElement(
+	          'th',
+	          null,
+	          'Artists'
+	        ),
+	        _react2.default.createElement(
+	          'th',
+	          null,
+	          'Genres'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'tbody',
+	      null,
+	      props.songs.map(function (song) {
+	        return _react2.default.createElement(_songRow2.default, { key: song._id, song: song, songList: props.songs });
+	      })
+	    )
+	  );
+	};
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _playerActions = __webpack_require__(227);
+
+	var _playerActions2 = _interopRequireDefault(_playerActions);
+
+	var _playerStore = __webpack_require__(220);
+
+	var _playerStore2 = _interopRequireDefault(_playerStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+
+	  var isCurrentSong = _playerStore2.default.getCurrentSong() && _playerStore2.default.getCurrentSong()._id === props.song._id,
+	      isCurrentlyPlaying = isCurrentSong && _playerStore2.default.isPlaying();
+
+	  function toggle(song, songList) {
+	    if (isCurrentlyPlaying) _playerActions2.default.pauseSong();else if (isCurrentSong) _playerActions2.default.resumeSong();else _playerActions2.default.startSong(song, songList);
+	  }
+
+	  return _react2.default.createElement(
+	    'tr',
+	    null,
+	    _react2.default.createElement(
+	      'td',
+	      null,
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: toggle.bind(undefined, props.song, props.songList), className: 'btn btn-default btn-s' },
+	        isCurrentlyPlaying ? null : _react2.default.createElement('span', { className: 'glyphicon glyphicon-play' }),
+	        isCurrentlyPlaying ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-pause' }) : null
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      null,
+	      props.song.name
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      null,
+	      props.song.artists.map(function (artist) {
+	        return _react2.default.createElement(
+	          'span',
+	          { key: artist._id },
+	          artist.name,
+	          ' '
+	        );
+	      })
+	    ),
+	    _react2.default.createElement(
+	      'td',
+	      null,
+	      props.song.genres.join(', ')
+	    )
+	  );
 	};
 
 /***/ }
