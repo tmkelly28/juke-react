@@ -25072,10 +25072,13 @@
 
 	var _playerActions2 = _interopRequireDefault(_playerActions);
 
+	var _storePrototype = __webpack_require__(263);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change',
-	    AUDIO = document.createElement('audio');
+	var AUDIO = document.createElement('audio');
 	var _isPlaying = false,
 	    _currentSongList = void 0,
 	    _currentSong = null,
@@ -25116,16 +25119,7 @@
 	  _start(_currentSongList[index], _currentSongList);
 	}
 
-	var PlayerStore = Object.assign(_events2.default.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(cb) {
-	    this.on(CHANGE_EVENT, cb);
-	  },
-	  removeChangeListener: function removeChangeListener(cb) {
-	    this.removeListener(CHANGE_EVENT, cb);
-	  },
+	var PlayerStore = Object.assign(_events2.default.prototype, _storePrototype2.default, {
 	  isPlaying: function isPlaying() {
 	    return _isPlaying;
 	  },
@@ -25898,9 +25892,9 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _albumVcMixin = __webpack_require__(246);
+	var _storeWatchMixin = __webpack_require__(264);
 
-	var _albumVcMixin2 = _interopRequireDefault(_albumVcMixin);
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
 	var _albumCard = __webpack_require__(252);
 
@@ -25942,7 +25936,7 @@
 	  );
 	};
 
-	exports.default = (0, _albumVcMixin2.default)(Albums, getAlbums, _appActions2.default.getAlbums);
+	exports.default = (0, _storeWatchMixin2.default)(Albums, _albumStore2.default, getAlbums, _appActions2.default.getAlbums);
 
 /***/ },
 /* 229 */
@@ -27036,85 +27030,7 @@
 
 
 /***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _albumStore = __webpack_require__(247);
-
-	var _albumStore2 = _interopRequireDefault(_albumStore);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	exports.default = function (InnerComponent, stateCb, ajaxCb) {
-	  return function (_React$Component) {
-	    _inherits(_class, _React$Component);
-
-	    function _class(props) {
-	      _classCallCheck(this, _class);
-
-	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
-
-	      _this.state = stateCb(props);
-	      _this._onChange = _this._onChange.bind(_this);
-	      return _this;
-	    }
-
-	    _createClass(_class, [{
-	      key: 'componentWillMount',
-	      value: function componentWillMount() {
-	        _albumStore2.default.addChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: 'componentDidMount',
-	      value: function componentDidMount() {
-	        ajaxCb.call(null, this.props.params.albumId);
-	      }
-	    }, {
-	      key: 'componentWillUnmount',
-	      value: function componentWillUnmount() {
-	        _albumStore2.default.removeChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: '_onChange',
-	      value: function _onChange() {
-	        this.setState(stateCb(this.props));
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props));
-	      }
-	    }]);
-
-	    return _class;
-	  }(_react2.default.Component);
-	};
-
-/***/ },
+/* 246 */,
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27132,9 +27048,12 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
+	var _storePrototype = __webpack_require__(263);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change';
 	var _albums = [],
 	    _album = {
 	  songs: []
@@ -27148,16 +27067,7 @@
 	  _album = album;
 	}
 
-	var AlbumStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(cb) {
-	    this.on(CHANGE_EVENT, cb);
-	  },
-	  removeChangeListener: function removeChangeListener(cb) {
-	    this.removeListener(CHANGE_EVENT, cb);
-	  },
+	var AlbumStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
 	  getAlbums: function getAlbums() {
 	    return _albums;
 	  },
@@ -27240,9 +27150,9 @@
 	      });
 	    }).catch(_errorHandler2.default);
 	  },
-	  getAlbumById: function getAlbumById(id) {
+	  getAlbumById: function getAlbumById(params) {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOADING_ALBUM });
-	    _axios2.default.get('/api/albums/' + id).then(function (res) {
+	    _axios2.default.get('/api/albums/' + params.albumId).then(function (res) {
 	      return res.data;
 	    }).then(function (album) {
 	      return (0, _albumConvert2.default)(album);
@@ -27267,9 +27177,9 @@
 	      });
 	    }).catch(_errorHandler2.default);
 	  },
-	  getArtistById: function getArtistById(id) {
+	  getArtistById: function getArtistById(params) {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOADING_ARTIST });
-	    var url = '/api/artists/' + id;
+	    var url = '/api/artists/' + params.artistId;
 	    Promise.all([_axios2.default.get(url), _axios2.default.get(url + '/songs'), _axios2.default.get(url + '/albums')]).then(function (arr) {
 	      var artist = arr[0].data,
 	          songs = arr[1].data.map(_songConvert2.default),
@@ -27404,9 +27314,9 @@
 
 	var _albumStore2 = _interopRequireDefault(_albumStore);
 
-	var _albumVcMixin = __webpack_require__(246);
+	var _storeWatchMixin = __webpack_require__(264);
 
-	var _albumVcMixin2 = _interopRequireDefault(_albumVcMixin);
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
 	var _songList = __webpack_require__(254);
 
@@ -27441,7 +27351,7 @@
 	  params: _react2.default.PropTypes.object.isRequired
 	};
 
-	exports.default = (0, _albumVcMixin2.default)(Album, getAlbum, _appActions2.default.getAlbumById);
+	exports.default = (0, _storeWatchMixin2.default)(Album, _albumStore2.default, getAlbum, _appActions2.default.getAlbumById);
 
 /***/ },
 /* 254 */
@@ -27626,9 +27536,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _artistVsMixin = __webpack_require__(258);
+	var _storeWatchMixin = __webpack_require__(264);
 
-	var _artistVsMixin2 = _interopRequireDefault(_artistVsMixin);
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
 	var _artistStore = __webpack_require__(259);
 
@@ -27675,88 +27585,10 @@
 	  );
 	};
 
-	exports.default = (0, _artistVsMixin2.default)(Artists, getArtists, _appActions2.default.getArtists);
+	exports.default = (0, _storeWatchMixin2.default)(Artists, _artistStore2.default, getArtists, _appActions2.default.getArtists);
 
 /***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _albumStore = __webpack_require__(247);
-
-	var _albumStore2 = _interopRequireDefault(_albumStore);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	exports.default = function (InnerComponent, stateCb, ajaxCb) {
-	  return function (_React$Component) {
-	    _inherits(_class, _React$Component);
-
-	    function _class(props) {
-	      _classCallCheck(this, _class);
-
-	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
-
-	      _this.state = stateCb(props);
-	      _this._onChange = _this._onChange.bind(_this);
-	      return _this;
-	    }
-
-	    _createClass(_class, [{
-	      key: 'componentWillMount',
-	      value: function componentWillMount() {
-	        _albumStore2.default.addChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: 'componentDidMount',
-	      value: function componentDidMount() {
-	        ajaxCb.call(null, this.props.params.artistId);
-	      }
-	    }, {
-	      key: 'componentWillUnmount',
-	      value: function componentWillUnmount() {
-	        _albumStore2.default.removeChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: '_onChange',
-	      value: function _onChange() {
-	        this.setState(stateCb(this.props));
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props));
-	      }
-	    }]);
-
-	    return _class;
-	  }(_react2.default.Component);
-	};
-
-/***/ },
+/* 258 */,
 /* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27774,9 +27606,12 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
+	var _storePrototype = __webpack_require__(263);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change';
 	var _artists = [],
 	    _artist = {};
 
@@ -27788,16 +27623,7 @@
 	  _artist = artist;
 	}
 
-	var ArtistStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(cb) {
-	    this.on(CHANGE_EVENT, cb);
-	  },
-	  removeChangeListener: function removeChangeListener(cb) {
-	    this.removeListener(CHANGE_EVENT, cb);
-	  },
+	var ArtistStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
 	  getArtists: function getArtists() {
 	    return _artists;
 	  },
@@ -27853,9 +27679,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _artistVsMixin = __webpack_require__(258);
+	var _storeWatchMixin = __webpack_require__(264);
 
-	var _artistVsMixin2 = _interopRequireDefault(_artistVsMixin);
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
 	var _artistStore = __webpack_require__(259);
 
@@ -27910,7 +27736,7 @@
 	  );
 	};
 
-	exports.default = (0, _artistVsMixin2.default)(Artist, getArtist, _appActions2.default.getArtistById);
+	exports.default = (0, _storeWatchMixin2.default)(Artist, _artistStore2.default, getArtist, _appActions2.default.getArtistById);
 
 /***/ },
 /* 261 */
@@ -27994,6 +27820,104 @@
 	    ),
 	    _react2.default.createElement(_songList2.default, { songs: songs })
 	  );
+	};
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	exports.default = {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(cb) {
+	    this.on(CHANGE_EVENT, cb);
+	  },
+	  removeChangeListener: function removeChangeListener(cb) {
+	    this.removeListener(CHANGE_EVENT, cb);
+	  }
+	};
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _appActions = __webpack_require__(248);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	exports.default = function (InnerComponent, Store, stateCb, ajaxCb) {
+	  return function (_React$Component) {
+	    _inherits(_class, _React$Component);
+
+	    function _class(props) {
+	      _classCallCheck(this, _class);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
+
+	      _this.state = stateCb(props);
+	      _this._onChange = _this._onChange.bind(_this);
+	      return _this;
+	    }
+
+	    _createClass(_class, [{
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        Store.addChangeListener(this._onChange);
+	      }
+	    }, {
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        ajaxCb.call(null, this.props.params);
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        Store.removeChangeListener(this._onChange);
+	      }
+	    }, {
+	      key: '_onChange',
+	      value: function _onChange() {
+	        this.setState(stateCb(this.props));
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react2.default.Component);
 	};
 
 /***/ }

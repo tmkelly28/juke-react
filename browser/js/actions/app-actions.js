@@ -21,9 +21,9 @@ export default {
       })
       .catch(errorHandler)
   },
-  getAlbumById (id) {
+  getAlbumById (params) {
     dispatch({ actionType: AppConstants.LOADING_ALBUM });
-    axios.get(`/api/albums/${id}`)
+    axios.get(`/api/albums/${params.albumId}`)
       .then(res => res.data)
       .then(album => albumConvert(album))
       .then(album => {
@@ -45,9 +45,9 @@ export default {
       }))
       .catch(errorHandler);
   },
-  getArtistById (id) {
+  getArtistById (params) {
     dispatch({ actionType: AppConstants.LOADING_ARTIST });
-    let url = `/api/artists/${id}`;
+    let url = `/api/artists/${params.artistId}`;
     Promise.all([axios.get(url), axios.get(url + '/songs'), axios.get(url + '/albums')])
       .then(arr => {
         let artist = arr[0].data,

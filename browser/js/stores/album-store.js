@@ -3,8 +3,8 @@
 import {EventEmitter} from 'events';
 import {register} from '../dispatchers/app-dispatcher';
 import AppConstants from '../constants/app-constants';
+import StorePrototype from './store-prototype';
 
-const CHANGE_EVENT = 'change';
 let _albums = [],
   _album = {
   songs: []
@@ -18,16 +18,7 @@ function _setAlbum (album) {
   _album = album;
 }
 
-const AlbumStore = Object.assign(EventEmitter.prototype, {
-  emitChange () {
-    this.emit(CHANGE_EVENT);
-  },
-  addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
-  },
+const AlbumStore = Object.assign(EventEmitter.prototype, StorePrototype, {
   getAlbums () {
     return _albums;
   },

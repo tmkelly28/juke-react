@@ -2,7 +2,7 @@
 
 import React from 'react';
 import AlbumStore from '../../stores/album-store';
-import AlbumViewController from '../../mixins/album-vc-mixin';
+import StoreWatchMixin from '../../mixins/store-watch-mixin';
 import SongList from './song-list';
 import AlbumHeader from './album-header';
 import actions from '../../actions/app-actions';
@@ -26,4 +26,4 @@ Album.propTypes = {
   params: React.PropTypes.object.isRequired
 }
 
-export default AlbumViewController(Album, getAlbum, actions.getAlbumById);
+export default StoreWatchMixin(Album, AlbumStore, getAlbum, actions.getAlbumById);

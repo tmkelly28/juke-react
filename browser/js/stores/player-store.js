@@ -4,9 +4,9 @@ import EventEmitter from 'events';
 import {register} from '../dispatchers/app-dispatcher';
 import AppConstants from '../constants/app-constants';
 import actions from '../actions/player-actions';
+import StorePrototype from './store-prototype';
 
-const CHANGE_EVENT = 'change',
-  AUDIO = document.createElement('audio');
+const AUDIO = document.createElement('audio');
 let _isPlaying = false,
   _currentSongList,
   _currentSong = null,
@@ -47,16 +47,7 @@ function _moveTo (index) {
     _start(_currentSongList[index], _currentSongList);
 }
 
-const PlayerStore = Object.assign(EventEmitter.prototype, {
-  emitChange () {
-    this.emit(CHANGE_EVENT);
-  },
-  addChangeListener (cb) {
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener (cb) {
-    this.removeListener(CHANGE_EVENT, cb);
-  },
+const PlayerStore = Object.assign(EventEmitter.prototype, StorePrototype, {
   isPlaying () {
     return _isPlaying;
   },

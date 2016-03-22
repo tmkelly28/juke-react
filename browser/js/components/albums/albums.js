@@ -2,7 +2,7 @@
 
 import React from 'react';
 import axios from 'axios';
-import AlbumViewController from '../../mixins/album-vc-mixin';
+import StoreWatchMixin from '../../mixins/store-watch-mixin';
 import AlbumCard from './album-card';
 import AlbumStore from '../../stores/album-store';
 import actions from '../../actions/app-actions';
@@ -29,4 +29,4 @@ const Albums = (props) => {
   );
 }
 
-export default AlbumViewController(Albums, getAlbums, actions.getAlbums);
+export default StoreWatchMixin(Albums, AlbumStore, getAlbums, actions.getAlbums);

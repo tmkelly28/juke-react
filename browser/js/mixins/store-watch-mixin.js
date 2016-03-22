@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import AlbumStore from '../stores/album-store';
 import actions from '../actions/app-actions';
 
-export default (InnerComponent, stateCb, ajaxCb) => class extends React.Component {
+export default (InnerComponent, Store, stateCb, ajaxCb) => class extends React.Component {
   constructor (props) {
     super(props);
     this.state = stateCb(props);
@@ -12,15 +11,15 @@ export default (InnerComponent, stateCb, ajaxCb) => class extends React.Componen
   }
 
   componentWillMount () {
-    AlbumStore.addChangeListener(this._onChange);
+    Store.addChangeListener(this._onChange);
   }
 
   componentDidMount () {
-    ajaxCb.call(null, this.props.params.albumId);
+    ajaxCb.call(null, this.props.params);
   }
 
   componentWillUnmount () {
-    AlbumStore.removeChangeListener(this._onChange);
+    Store.removeChangeListener(this._onChange);
   }
 
   _onChange () {

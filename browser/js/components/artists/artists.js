@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import ArtistViewController from '../../mixins/artist-vs-mixin';
+import StoreWatchMixin from '../../mixins/store-watch-mixin';
 import ArtistStore from '../../stores/artist-store';
 import actions from '../../actions/app-actions';
 import {Link} from 'react-router';
@@ -31,4 +31,4 @@ const Artists = (props) => {
   );
 }
 
-export default ArtistViewController(Artists, getArtists, actions.getArtists)
+export default StoreWatchMixin(Artists, ArtistStore, getArtists, actions.getArtists);
