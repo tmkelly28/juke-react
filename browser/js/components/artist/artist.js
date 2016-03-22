@@ -24,7 +24,11 @@ const Artist = (props) => {
           <Link to={`/artists/${props.artist._id}/songs`}>SONGS</Link>
         </li>
       </ul>
-      {props.children}
+      {
+        React.Children.map(props.children, child => {
+          return React.cloneElement(child, {artist: props.artist})
+        })
+      }
     </div>
   );
 }

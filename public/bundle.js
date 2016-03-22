@@ -27605,7 +27605,9 @@
 	        )
 	      )
 	    ),
-	    props.children
+	    _react2.default.Children.map(props.children, function (child) {
+	      return _react2.default.cloneElement(child, { artist: props.artist });
+	    })
 	  );
 	};
 
@@ -27636,7 +27638,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (props) {
-	  var albums = _artistStore2.default.getArtistAlbums();
 
 	  return _react2.default.createElement(
 	    'div',
@@ -27649,9 +27650,9 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      albums.map(function (album) {
+	      props.artist.albums ? props.artist.albums.map(function (album) {
 	        return _react2.default.createElement(_albumCard2.default, { key: album._id, album: album });
-	      })
+	      }) : null
 	    )
 	  );
 	};
@@ -27681,8 +27682,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (props) {
-	  var songs = _artistStore2.default.getArtistSongs();
-
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -27691,7 +27690,7 @@
 	      null,
 	      'SONGS'
 	    ),
-	    _react2.default.createElement(_songList2.default, { songs: songs })
+	    _react2.default.createElement(_songList2.default, { songs: props.artist.songs })
 	  );
 	};
 
@@ -27844,9 +27843,9 @@
 	    _react2.default.createElement(
 	      'tbody',
 	      null,
-	      props.songs.map(function (song) {
+	      props.songs ? props.songs.map(function (song) {
 	        return _react2.default.createElement(_songRow2.default, { key: song._id, song: song, songList: props.songs });
-	      })
+	      }) : null
 	    )
 	  );
 	};

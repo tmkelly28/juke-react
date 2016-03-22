@@ -16,9 +16,9 @@ export default (props) => {
       </thead>
       <tbody>
         {
-          props.songs.map(song => {
+          props.songs ? props.songs.map(song => {
             return <SongRow key={song._id} song={song} songList={props.songs} />
-          })
+          }) : null
         }
       </tbody>
     </table>
