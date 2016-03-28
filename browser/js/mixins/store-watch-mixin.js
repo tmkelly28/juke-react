@@ -15,7 +15,7 @@ export default (InnerComponent, Store, stateCb, ajaxCb) => class extends React.C
   }
 
   componentDidMount () {
-    ajaxCb.call(null, this.props.params);
+    if (ajaxCb) ajaxCb.call(null, this.props.params);
   }
 
   componentWillUnmount () {

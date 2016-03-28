@@ -11,12 +11,13 @@ module.exports = function (app) {
     };
 
     require('./app-variables')(app);
-    
+
     // Logging middleware, set as application
     // variable inside of server/app/configure/app-variables.js
     app.use(app.getValue('log'));
 
     require('./static-middleware')(app);
     require('./parsing-middleware')(app);
+    require('./authentication')(app);
 
 };

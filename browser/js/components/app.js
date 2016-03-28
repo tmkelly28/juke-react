@@ -10,12 +10,16 @@ import Artists from './artists/artists';
 import Artist from './artist/artist';
 import ArtistAlbums from './artist/artist-albums';
 import ArtistSongs from './artist/artist-songs';
+import Login from './login/login';
+import Signup from './signup/signup';
 
 export default () => {
   return (
     <Router history={browserHistory}>
       <Route path="/" component={Template}>
-        <IndexRoute component={Albums}></IndexRoute>
+        <IndexRoute component={Login}></IndexRoute>
+        <Route path="login" component={Login} />
+        <Route path="signup" component={Signup} />
         <Route path="albums" component={Albums} />
         <Route path="artists" component={Artists} />
         <Route path="albums/:albumId" component={Album} />

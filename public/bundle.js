@@ -19683,29 +19683,37 @@
 
 	var _reactRouter = __webpack_require__(162);
 
-	var _albums = __webpack_require__(228);
+	var _albums = __webpack_require__(254);
 
 	var _albums2 = _interopRequireDefault(_albums);
 
-	var _album = __webpack_require__(253);
+	var _album = __webpack_require__(257);
 
 	var _album2 = _interopRequireDefault(_album);
 
-	var _artists = __webpack_require__(257);
+	var _artists = __webpack_require__(261);
 
 	var _artists2 = _interopRequireDefault(_artists);
 
-	var _artist = __webpack_require__(260);
+	var _artist = __webpack_require__(263);
 
 	var _artist2 = _interopRequireDefault(_artist);
 
-	var _artistAlbums = __webpack_require__(261);
+	var _artistAlbums = __webpack_require__(264);
 
 	var _artistAlbums2 = _interopRequireDefault(_artistAlbums);
 
-	var _artistSongs = __webpack_require__(262);
+	var _artistSongs = __webpack_require__(265);
 
 	var _artistSongs2 = _interopRequireDefault(_artistSongs);
+
+	var _login = __webpack_require__(266);
+
+	var _login2 = _interopRequireDefault(_login);
+
+	var _signup = __webpack_require__(268);
+
+	var _signup2 = _interopRequireDefault(_signup);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19716,7 +19724,9 @@
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _appTemplate2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _albums2.default }),
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _login2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _login2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'albums', component: _albums2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'artists', component: _artists2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'albums/:albumId', component: _album2.default }),
@@ -19752,19 +19762,29 @@
 
 	var _player2 = _interopRequireDefault(_player);
 
+	var _auth = __webpack_require__(229);
+
+	var _auth2 = _interopRequireDefault(_auth);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'container-fluid' },
-	    _react2.default.createElement(_sidebar2.default, null),
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'col-xs-10' },
-	      props.children
-	    ),
-	    _react2.default.createElement(_player2.default, null)
+	      _auth2.default,
+	      null,
+	      _react2.default.createElement(_sidebar2.default, null),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-xs-10' },
+	        _react2.default.Children.map(props.children, function (child) {
+	          return _react2.default.cloneElement(child, { user: props.user });
+	        })
+	      ),
+	      _react2.default.createElement(_player2.default, null)
+	    )
 	  );
 	};
 
@@ -19785,6 +19805,10 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRouter = __webpack_require__(162);
+
+	var _authActions = __webpack_require__(230);
+
+	var _authActions2 = _interopRequireDefault(_authActions);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19817,12 +19841,8 @@
 	            null,
 	            _react2.default.createElement(
 	              'h5',
-	              { className: 'playlist-item' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/albums' },
-	                'ALBUMS'
-	              )
+	              null,
+	              this.props.user ? this.props.user.username : null
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -19831,12 +19851,60 @@
 	            _react2.default.createElement(
 	              'h5',
 	              { className: 'playlist-item' },
-	              _react2.default.createElement(
+	              !this.props.user ? _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'LOGIN'
+	              ) : null
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'section',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              { className: 'playlist-item' },
+	              !this.props.user ? _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'SIGNUP'
+	              ) : null
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'section',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              { className: 'playlist-item' },
+	              this.props.user ? _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/albums' },
+	                'ALBUMS'
+	              ) : null
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'section',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              { className: 'playlist-item' },
+	              this.props.user ? _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/artists' },
 	                'ARTISTS'
-	              )
+	              ) : null
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'section',
+	            null,
+	            this.props.user ? _react2.default.createElement(
+	              'h5',
+	              { className: 'playlist-item', onClick: _authActions2.default.logout },
+	              'LOGOUT'
+	            ) : null
 	          )
 	        )
 	      );
@@ -25072,7 +25140,7 @@
 
 	var _playerActions2 = _interopRequireDefault(_playerActions);
 
-	var _storePrototype = __webpack_require__(263);
+	var _storePrototype = __webpack_require__(228);
 
 	var _storePrototype2 = _interopRequireDefault(_storePrototype);
 
@@ -25820,18 +25888,26 @@
 	});
 	exports.default = {
 	  LOADING_ALBUMS: 'LOADING_ALBUMS',
+	  LOADING_ALBUM: 'LOADING_ALBUM',
 	  GET_ALBUMS: 'GET_ALBUMS',
 	  GET_ALBUM_BY_ID: 'GET_ALBUM_BY_ID',
-	  LOADING_ALBUM: 'LOADING_ALBUM',
+
 	  LOADING_ARTISTS: 'LOADING_ARTISTS',
-	  GET_ARTISTS: 'GET_ARTISTS',
 	  LOADING_ARTIST: 'LOADING_ARTIST',
+	  GET_ARTISTS: 'GET_ARTISTS',
 	  GET_ARTIST_BY_ID: 'GET_ARTIST_BY_ID',
+
 	  START_SONG: 'START_SONG',
 	  PAUSE_SONG: 'PAUSE_SONG',
 	  RESUME_SONG: 'RESUME_SONG',
 	  NEXT_SONG: 'NEXT_SONG',
-	  PREVIOUS_SONG: 'PREVIOUS_SONG'
+	  PREVIOUS_SONG: 'PREVIOUS_SONG',
+
+	  AUTHENTICATE_LOGIN: 'AUTHENTICATE_LOGIN',
+	  AUTHENTICATION_FAILED: 'AUTHENTICATION_FAILED',
+	  AUTHENTICATION_SUCCEEDED: 'AUTHENTICATION_SUCCEEDED',
+	  VALIDATE_SIGNUP: 'VALIDATE_SIGNUP',
+	  LOGOUT_USER: 'LOGOUT_USER'
 	};
 
 /***/ },
@@ -25876,6 +25952,29 @@
 
 /***/ },
 /* 228 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	exports.default = {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(cb) {
+	    this.on(CHANGE_EVENT, cb);
+	  },
+	  removeChangeListener: function removeChangeListener(cb) {
+	    this.removeListener(CHANGE_EVENT, cb);
+	  }
+	};
+
+/***/ },
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25888,61 +25987,37 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _axios = __webpack_require__(229);
+	var _authActions = __webpack_require__(230);
 
-	var _axios2 = _interopRequireDefault(_axios);
+	var _authActions2 = _interopRequireDefault(_authActions);
 
-	var _storeWatchMixin = __webpack_require__(264);
+	var _storeWatchMixin = __webpack_require__(248);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
-	var _albumCard = __webpack_require__(252);
+	var _authStore = __webpack_require__(253);
 
-	var _albumCard2 = _interopRequireDefault(_albumCard);
-
-	var _albumStore = __webpack_require__(247);
-
-	var _albumStore2 = _interopRequireDefault(_albumStore);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
+	var _authStore2 = _interopRequireDefault(_authStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function getAlbums() {
+	function getSession() {
 	  return {
-	    albums: _albumStore2.default.getAlbums()
+	    user: _authStore2.default.getUser()
 	  };
 	}
 
-	var Albums = function Albums(props) {
-
+	var Auth = function Auth(props) {
 	  return _react2.default.createElement(
 	    'div',
 	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Albums'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      props.albums.map(function (album) {
-	        return _react2.default.createElement(_albumCard2.default, { key: album._id, album: album });
-	      })
-	    )
+	    _react2.default.Children.map(props.children, function (child) {
+	      return _react2.default.cloneElement(child, { user: props.user });
+	    })
 	  );
 	};
 
-	exports.default = (0, _storeWatchMixin2.default)(Albums, _albumStore2.default, getAlbums, _appActions2.default.getAlbums);
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(230);
+	exports.default = (0, _storeWatchMixin2.default)(Auth, _authStore2.default, getSession, _authActions2.default.getSession);
 
 /***/ },
 /* 230 */
@@ -25950,14 +26025,97 @@
 
 	'use strict';
 
-	var defaults = __webpack_require__(231);
-	var utils = __webpack_require__(232);
-	var dispatchRequest = __webpack_require__(233);
-	var InterceptorManager = __webpack_require__(241);
-	var isAbsoluteURL = __webpack_require__(242);
-	var combineURLs = __webpack_require__(243);
-	var bind = __webpack_require__(244);
-	var transformData = __webpack_require__(237);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _appConstants = __webpack_require__(226);
+
+	var _appConstants2 = _interopRequireDefault(_appConstants);
+
+	var _axios = __webpack_require__(231);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _appDispatcher = __webpack_require__(222);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	  login: function login(credentials) {
+	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
+	    return _axios2.default.post('/login', credentials).then(function (res) {
+	      return res.data.user;
+	    }).then(function (user) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
+	        user: user
+	      });
+	    }).catch(function (err) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
+	        err: err
+	      });
+	    });
+	  },
+	  signup: function signup(credentials) {
+	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
+	    return _axios2.default.post('/signup', credentials).then(function (res) {
+	      return res.data.user;
+	    }).then(function (user) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
+	        user: user
+	      });
+	    }).catch(function (err) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
+	        err: err
+	      });
+	    });
+	  },
+	  getSession: function getSession() {
+	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
+	    return _axios2.default.get('/session').then(function (res) {
+	      return res.data.user;
+	    }).then(function (user) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
+	        user: user
+	      });
+	    }).catch(function (err) {
+	      return (0, _appDispatcher.dispatch)({
+	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
+	        err: err
+	      });
+	    });
+	  },
+	  logout: function logout() {
+	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOGOUT_USER });
+	    return _axios2.default.get('/logout').catch(console.error);
+	  }
+	};
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(232);
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var defaults = __webpack_require__(233);
+	var utils = __webpack_require__(234);
+	var dispatchRequest = __webpack_require__(235);
+	var InterceptorManager = __webpack_require__(243);
+	var isAbsoluteURL = __webpack_require__(244);
+	var combineURLs = __webpack_require__(245);
+	var bind = __webpack_require__(246);
+	var transformData = __webpack_require__(239);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -26040,7 +26198,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(245);
+	axios.spread = __webpack_require__(247);
 
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -26071,12 +26229,12 @@
 
 
 /***/ },
-/* 231 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -26140,7 +26298,7 @@
 
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26390,7 +26548,7 @@
 
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -26412,10 +26570,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(234);
+	        adapter = __webpack_require__(236);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(234);
+	        adapter = __webpack_require__(236);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -26431,17 +26589,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
-	var buildURL = __webpack_require__(235);
-	var parseHeaders = __webpack_require__(236);
-	var transformData = __webpack_require__(237);
-	var isURLSameOrigin = __webpack_require__(238);
-	var btoa = window.btoa || __webpack_require__(239);
+	var utils = __webpack_require__(234);
+	var buildURL = __webpack_require__(237);
+	var parseHeaders = __webpack_require__(238);
+	var transformData = __webpack_require__(239);
+	var isURLSameOrigin = __webpack_require__(240);
+	var btoa = window.btoa || __webpack_require__(241);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -26516,7 +26674,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(240);
+	    var cookies = __webpack_require__(242);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -26567,12 +26725,12 @@
 
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -26640,12 +26798,12 @@
 
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	/**
 	 * Parse headers into an object
@@ -26683,12 +26841,12 @@
 
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	/**
 	 * Transform the data for a request or a response
@@ -26709,12 +26867,12 @@
 
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26783,7 +26941,7 @@
 
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26825,12 +26983,12 @@
 
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -26884,12 +27042,12 @@
 
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(232);
+	var utils = __webpack_require__(234);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -26942,7 +27100,7 @@
 
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26962,7 +27120,7 @@
 
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26980,7 +27138,7 @@
 
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26997,7 +27155,7 @@
 
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27030,80 +27188,6 @@
 
 
 /***/ },
-/* 246 */,
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _events = __webpack_require__(221);
-
-	var _appDispatcher = __webpack_require__(222);
-
-	var _appConstants = __webpack_require__(226);
-
-	var _appConstants2 = _interopRequireDefault(_appConstants);
-
-	var _storePrototype = __webpack_require__(263);
-
-	var _storePrototype2 = _interopRequireDefault(_storePrototype);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var _albums = [],
-	    _album = {
-	  songs: []
-	};
-
-	function _setAlbums(albums) {
-	  _albums = albums;
-	}
-
-	function _setAlbum(album) {
-	  _album = album;
-	}
-
-	var AlbumStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
-	  getAlbums: function getAlbums() {
-	    return _albums;
-	  },
-	  getAlbum: function getAlbum() {
-	    return _album;
-	  },
-
-	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
-
-	    var changed = true;
-
-	    switch (action.actionType) {
-	      case _appConstants2.default.LOADING_ALBUMS:
-	        _setAlbums([]);
-	        break;
-	      case _appConstants2.default.GET_ALBUMS:
-	        _setAlbums(action.albums);
-	        break;
-	      case _appConstants2.default.LOADING_ALBUM:
-	        _setAlbum({ songs: [] });
-	        break;
-	      case _appConstants2.default.GET_ALBUM_BY_ID:
-	        _setAlbum(action.album);
-	        break;
-	      default:
-	        changed = false;
-	        break;
-	    }
-
-	    if (changed) AlbumStore.emitChange();
-	  })
-	});
-
-	exports.default = AlbumStore;
-
-/***/ },
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27113,25 +27197,100 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _appActions = __webpack_require__(249);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	exports.default = function (InnerComponent, Store, stateCb, ajaxCb) {
+	  return function (_React$Component) {
+	    _inherits(_class, _React$Component);
+
+	    function _class(props) {
+	      _classCallCheck(this, _class);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
+
+	      _this.state = stateCb(props);
+	      _this._onChange = _this._onChange.bind(_this);
+	      return _this;
+	    }
+
+	    _createClass(_class, [{
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        Store.addChangeListener(this._onChange);
+	      }
+	    }, {
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        if (ajaxCb) ajaxCb.call(null, this.props.params);
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        Store.removeChangeListener(this._onChange);
+	      }
+	    }, {
+	      key: '_onChange',
+	      value: function _onChange() {
+	        this.setState(stateCb(this.props));
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react2.default.Component);
+	};
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _appConstants = __webpack_require__(226);
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
-	var _axios = __webpack_require__(229);
+	var _axios = __webpack_require__(231);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
 	var _appDispatcher = __webpack_require__(222);
 
-	var _albumConvert = __webpack_require__(249);
+	var _albumConvert = __webpack_require__(250);
 
 	var _albumConvert2 = _interopRequireDefault(_albumConvert);
 
-	var _songConvert = __webpack_require__(250);
+	var _songConvert = __webpack_require__(251);
 
 	var _songConvert2 = _interopRequireDefault(_songConvert);
 
-	var _errorHandler = __webpack_require__(251);
+	var _errorHandler = __webpack_require__(252);
 
 	var _errorHandler2 = _interopRequireDefault(_errorHandler);
 
@@ -27195,7 +27354,7 @@
 	};
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27210,7 +27369,7 @@
 	}
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27234,7 +27393,7 @@
 	};
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27248,7 +27407,136 @@
 	}
 
 /***/ },
-/* 252 */
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(221);
+
+	var _appDispatcher = __webpack_require__(222);
+
+	var _appConstants = __webpack_require__(226);
+
+	var _appConstants2 = _interopRequireDefault(_appConstants);
+
+	var _storePrototype = __webpack_require__(228);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _user = null;
+
+	function _setUser() {
+	  var user = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+	  _user = user;
+	}
+
+	var AuthStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
+	  getUser: function getUser() {
+	    return _user;
+	  },
+
+	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
+
+	    var changed = true;
+
+	    switch (action.actionType) {
+	      case _appConstants2.default.AUTHENTICATE_LOGIN:
+	        _setUser();
+	        break;
+	      case _appConstants2.default.AUTHENTICATION_SUCCEEDED:
+	        _setUser(action.user);
+	        break;
+	      case _appConstants2.default.AUTHENTICATION_FAILED:
+	        _setUser();
+	        break;
+	      case _appConstants2.default.LOGOUT_USER:
+	        _setUser();
+	        break;
+	      default:
+	        changed = false;
+	        break;
+	    }
+
+	    if (changed) AuthStore.emitChange();
+	  })
+	});
+
+	exports.default = AuthStore;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(231);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _storeWatchMixin = __webpack_require__(248);
+
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
+
+	var _albumCard = __webpack_require__(255);
+
+	var _albumCard2 = _interopRequireDefault(_albumCard);
+
+	var _albumStore = __webpack_require__(256);
+
+	var _albumStore2 = _interopRequireDefault(_albumStore);
+
+	var _appActions = __webpack_require__(249);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getAlbums() {
+	  return {
+	    albums: _albumStore2.default.getAlbums()
+	  };
+	}
+
+	var Albums = function Albums(props) {
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      'Albums'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      props.albums.map(function (album) {
+	        return _react2.default.createElement(_albumCard2.default, { key: album._id, album: album });
+	      })
+	    )
+	  );
+	};
+
+	exports.default = (0, _storeWatchMixin2.default)(Albums, _albumStore2.default, getAlbums, _appActions2.default.getAlbums);
+
+/***/ },
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27297,7 +27585,80 @@
 	};
 
 /***/ },
-/* 253 */
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(221);
+
+	var _appDispatcher = __webpack_require__(222);
+
+	var _appConstants = __webpack_require__(226);
+
+	var _appConstants2 = _interopRequireDefault(_appConstants);
+
+	var _storePrototype = __webpack_require__(228);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _albums = [],
+	    _album = {
+	  songs: []
+	};
+
+	function _setAlbums(albums) {
+	  _albums = albums;
+	}
+
+	function _setAlbum(album) {
+	  _album = album;
+	}
+
+	var AlbumStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
+	  getAlbums: function getAlbums() {
+	    return _albums;
+	  },
+	  getAlbum: function getAlbum() {
+	    return _album;
+	  },
+
+	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
+
+	    var changed = true;
+
+	    switch (action.actionType) {
+	      case _appConstants2.default.LOADING_ALBUMS:
+	        _setAlbums([]);
+	        break;
+	      case _appConstants2.default.GET_ALBUMS:
+	        _setAlbums(action.albums);
+	        break;
+	      case _appConstants2.default.LOADING_ALBUM:
+	        _setAlbum({ songs: [] });
+	        break;
+	      case _appConstants2.default.GET_ALBUM_BY_ID:
+	        _setAlbum(action.album);
+	        break;
+	      default:
+	        changed = false;
+	        break;
+	    }
+
+	    if (changed) AlbumStore.emitChange();
+	  })
+	});
+
+	exports.default = AlbumStore;
+
+/***/ },
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27310,23 +27671,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _albumStore = __webpack_require__(247);
+	var _albumStore = __webpack_require__(256);
 
 	var _albumStore2 = _interopRequireDefault(_albumStore);
 
-	var _storeWatchMixin = __webpack_require__(264);
+	var _storeWatchMixin = __webpack_require__(248);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
-	var _songList = __webpack_require__(265);
+	var _songList = __webpack_require__(258);
 
 	var _songList2 = _interopRequireDefault(_songList);
 
-	var _albumHeader = __webpack_require__(256);
+	var _albumHeader = __webpack_require__(260);
 
 	var _albumHeader2 = _interopRequireDefault(_albumHeader);
 
-	var _appActions = __webpack_require__(248);
+	var _appActions = __webpack_require__(249);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -27354,9 +27715,7 @@
 	exports.default = (0, _storeWatchMixin2.default)(Album, _albumStore2.default, getAlbum, _appActions2.default.getAlbumById);
 
 /***/ },
-/* 254 */,
-/* 255 */,
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27369,444 +27728,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function generateMailTo() {}
-
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      props.album.name,
-	      _react2.default.createElement(
-	        'a',
-	        { onClick: generateMailTo },
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-default btn-sm' },
-	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-share' })
-	        )
-	      )
-	    ),
-	    _react2.default.createElement('img', { src: props.album.imageUrl, className: 'img-thumbnail' })
-	  );
-	};
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _storeWatchMixin = __webpack_require__(264);
-
-	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
-
-	var _artistStore = __webpack_require__(259);
-
-	var _artistStore2 = _interopRequireDefault(_artistStore);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
-
-	var _reactRouter = __webpack_require__(162);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getArtists() {
-	  return {
-	    artists: _artistStore2.default.getArtists()
-	  };
-	}
-
-	var Artists = function Artists(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Artists'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'list-group' },
-	      props.artists.map(function (artist) {
-	        return _react2.default.createElement(
-	          'div',
-	          { key: artist._id, className: 'list-group-item' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/artists/' + artist._id },
-	            artist.name
-	          )
-	        );
-	      })
-	    )
-	  );
-	};
-
-	exports.default = (0, _storeWatchMixin2.default)(Artists, _artistStore2.default, getArtists, _appActions2.default.getArtists);
-
-/***/ },
-/* 258 */,
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _events = __webpack_require__(221);
-
-	var _appDispatcher = __webpack_require__(222);
-
-	var _appConstants = __webpack_require__(226);
-
-	var _appConstants2 = _interopRequireDefault(_appConstants);
-
-	var _storePrototype = __webpack_require__(263);
-
-	var _storePrototype2 = _interopRequireDefault(_storePrototype);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var _artists = [],
-	    _artist = {};
-
-	function _setArtists(artists) {
-	  _artists = artists;
-	}
-
-	function _setArtist(artist) {
-	  _artist = artist;
-	}
-
-	var ArtistStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
-	  getArtists: function getArtists() {
-	    return _artists;
-	  },
-	  getArtist: function getArtist() {
-	    return _artist;
-	  },
-	  getArtistAlbums: function getArtistAlbums() {
-	    return _artist.albums || [];
-	  },
-	  getArtistSongs: function getArtistSongs() {
-	    return _artist.songs || [];
-	  },
-
-	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
-
-	    var changed = true;
-
-	    switch (action.actionType) {
-	      case _appConstants2.default.LOADING_ARTISTS:
-	        _setArtists([]);
-	        break;
-	      case _appConstants2.default.GET_ARTISTS:
-	        _setArtists(action.artists);
-	        break;
-	      case _appConstants2.default.LOADING_ARTIST:
-	        _setArtist({});
-	        break;
-	      case _appConstants2.default.GET_ARTIST_BY_ID:
-	        _setArtist(action.artist);
-	        break;
-	      default:
-	        changed = false;
-	        break;
-	    }
-
-	    if (changed) ArtistStore.emitChange();
-	  })
-	});
-
-	exports.default = ArtistStore;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _storeWatchMixin = __webpack_require__(264);
-
-	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
-
-	var _artistStore = __webpack_require__(259);
-
-	var _artistStore2 = _interopRequireDefault(_artistStore);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
-
-	var _reactRouter = __webpack_require__(162);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getArtist() {
-	  return {
-	    artist: _artistStore2.default.getArtist()
-	  };
-	}
-
-	var Artist = function Artist(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      props.artist.name
-	    ),
-	    _react2.default.createElement(
-	      'ul',
-	      { className: 'nav nav-tabs' },
-	      _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/artists/' + props.artist._id + '/albums' },
-	          'ALBUMS'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/artists/' + props.artist._id + '/songs' },
-	          'SONGS'
-	        )
-	      )
-	    ),
-	    _react2.default.Children.map(props.children, function (child) {
-	      return _react2.default.cloneElement(child, { artist: props.artist });
-	    })
-	  );
-	};
-
-	exports.default = (0, _storeWatchMixin2.default)(Artist, _artistStore2.default, getArtist, _appActions2.default.getArtistById);
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _albumCard = __webpack_require__(252);
-
-	var _albumCard2 = _interopRequireDefault(_albumCard);
-
-	var _artistStore = __webpack_require__(259);
-
-	var _artistStore2 = _interopRequireDefault(_artistStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h4',
-	      null,
-	      'ALBUMS'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      props.artist.albums ? props.artist.albums.map(function (album) {
-	        return _react2.default.createElement(_albumCard2.default, { key: album._id, album: album });
-	      }) : null
-	    )
-	  );
-	};
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _songList = __webpack_require__(265);
-
-	var _songList2 = _interopRequireDefault(_songList);
-
-	var _artistStore = __webpack_require__(259);
-
-	var _artistStore2 = _interopRequireDefault(_artistStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h4',
-	      null,
-	      'SONGS'
-	    ),
-	    _react2.default.createElement(_songList2.default, { songs: props.artist.songs })
-	  );
-	};
-
-/***/ },
-/* 263 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CHANGE_EVENT = 'change';
-
-	exports.default = {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(cb) {
-	    this.on(CHANGE_EVENT, cb);
-	  },
-	  removeChangeListener: function removeChangeListener(cb) {
-	    this.removeListener(CHANGE_EVENT, cb);
-	  }
-	};
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _appActions = __webpack_require__(248);
-
-	var _appActions2 = _interopRequireDefault(_appActions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	exports.default = function (InnerComponent, Store, stateCb, ajaxCb) {
-	  return function (_React$Component) {
-	    _inherits(_class, _React$Component);
-
-	    function _class(props) {
-	      _classCallCheck(this, _class);
-
-	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
-
-	      _this.state = stateCb(props);
-	      _this._onChange = _this._onChange.bind(_this);
-	      return _this;
-	    }
-
-	    _createClass(_class, [{
-	      key: 'componentWillMount',
-	      value: function componentWillMount() {
-	        Store.addChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: 'componentDidMount',
-	      value: function componentDidMount() {
-	        ajaxCb.call(null, this.props.params);
-	      }
-	    }, {
-	      key: 'componentWillUnmount',
-	      value: function componentWillUnmount() {
-	        Store.removeChangeListener(this._onChange);
-	      }
-	    }, {
-	      key: '_onChange',
-	      value: function _onChange() {
-	        this.setState(stateCb(this.props));
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props));
-	      }
-	    }]);
-
-	    return _class;
-	  }(_react2.default.Component);
-	};
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _songRow = __webpack_require__(266);
+	var _songRow = __webpack_require__(259);
 
 	var _songRow2 = _interopRequireDefault(_songRow);
 
@@ -27851,7 +27773,7 @@
 	};
 
 /***/ },
-/* 266 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27920,6 +27842,536 @@
 	    )
 	  );
 	};
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function generateMailTo() {}
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      props.album.name,
+	      _react2.default.createElement(
+	        'a',
+	        { onClick: generateMailTo },
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default btn-sm' },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-share' })
+	        )
+	      )
+	    ),
+	    _react2.default.createElement('img', { src: props.album.imageUrl, className: 'img-thumbnail' })
+	  );
+	};
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _storeWatchMixin = __webpack_require__(248);
+
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
+
+	var _artistStore = __webpack_require__(262);
+
+	var _artistStore2 = _interopRequireDefault(_artistStore);
+
+	var _appActions = __webpack_require__(249);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	var _reactRouter = __webpack_require__(162);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getArtists() {
+	  return {
+	    artists: _artistStore2.default.getArtists()
+	  };
+	}
+
+	var Artists = function Artists(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      'Artists'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'list-group' },
+	      props.artists.map(function (artist) {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: artist._id, className: 'list-group-item' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/artists/' + artist._id },
+	            artist.name
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+
+	exports.default = (0, _storeWatchMixin2.default)(Artists, _artistStore2.default, getArtists, _appActions2.default.getArtists);
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(221);
+
+	var _appDispatcher = __webpack_require__(222);
+
+	var _appConstants = __webpack_require__(226);
+
+	var _appConstants2 = _interopRequireDefault(_appConstants);
+
+	var _storePrototype = __webpack_require__(228);
+
+	var _storePrototype2 = _interopRequireDefault(_storePrototype);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _artists = [],
+	    _artist = {};
+
+	function _setArtists(artists) {
+	  _artists = artists;
+	}
+
+	function _setArtist(artist) {
+	  _artist = artist;
+	}
+
+	var ArtistStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
+	  getArtists: function getArtists() {
+	    return _artists;
+	  },
+	  getArtist: function getArtist() {
+	    return _artist;
+	  },
+	  getArtistAlbums: function getArtistAlbums() {
+	    return _artist.albums || [];
+	  },
+	  getArtistSongs: function getArtistSongs() {
+	    return _artist.songs || [];
+	  },
+
+	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
+
+	    var changed = true;
+
+	    switch (action.actionType) {
+	      case _appConstants2.default.LOADING_ARTISTS:
+	        _setArtists([]);
+	        break;
+	      case _appConstants2.default.GET_ARTISTS:
+	        _setArtists(action.artists);
+	        break;
+	      case _appConstants2.default.LOADING_ARTIST:
+	        _setArtist({});
+	        break;
+	      case _appConstants2.default.GET_ARTIST_BY_ID:
+	        _setArtist(action.artist);
+	        break;
+	      default:
+	        changed = false;
+	        break;
+	    }
+
+	    if (changed) ArtistStore.emitChange();
+	  })
+	});
+
+	exports.default = ArtistStore;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _storeWatchMixin = __webpack_require__(248);
+
+	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
+
+	var _artistStore = __webpack_require__(262);
+
+	var _artistStore2 = _interopRequireDefault(_artistStore);
+
+	var _appActions = __webpack_require__(249);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	var _reactRouter = __webpack_require__(162);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getArtist() {
+	  return {
+	    artist: _artistStore2.default.getArtist()
+	  };
+	}
+
+	var Artist = function Artist(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      props.artist.name
+	    ),
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'nav nav-tabs' },
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/artists/' + props.artist._id + '/albums' },
+	          'ALBUMS'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/artists/' + props.artist._id + '/songs' },
+	          'SONGS'
+	        )
+	      )
+	    ),
+	    _react2.default.Children.map(props.children, function (child) {
+	      return _react2.default.cloneElement(child, { artist: props.artist });
+	    })
+	  );
+	};
+
+	exports.default = (0, _storeWatchMixin2.default)(Artist, _artistStore2.default, getArtist, _appActions2.default.getArtistById);
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _albumCard = __webpack_require__(255);
+
+	var _albumCard2 = _interopRequireDefault(_albumCard);
+
+	var _artistStore = __webpack_require__(262);
+
+	var _artistStore2 = _interopRequireDefault(_artistStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h4',
+	      null,
+	      'ALBUMS'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      props.artist.albums ? props.artist.albums.map(function (album) {
+	        return _react2.default.createElement(_albumCard2.default, { key: album._id, album: album });
+	      }) : null
+	    )
+	  );
+	};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _songList = __webpack_require__(258);
+
+	var _songList2 = _interopRequireDefault(_songList);
+
+	var _artistStore = __webpack_require__(262);
+
+	var _artistStore2 = _interopRequireDefault(_artistStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h4',
+	      null,
+	      'SONGS'
+	    ),
+	    _react2.default.createElement(_songList2.default, { songs: props.artist.songs })
+	  );
+	};
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _formInputMixin = __webpack_require__(267);
+
+	var _formInputMixin2 = _interopRequireDefault(_formInputMixin);
+
+	var _authActions = __webpack_require__(230);
+
+	var _authActions2 = _interopRequireDefault(_authActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var iconStyle = {
+	  height: '10em',
+	  width: '100%',
+	  margin: '0 auto'
+	};
+
+	var Login = function Login(props) {
+	  return _react2.default.createElement(
+	    'form',
+	    { role: 'form' },
+	    _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'form-group' },
+	      _react2.default.createElement(
+	        'label',
+	        { htmlFor: 'user' },
+	        'Username'
+	      ),
+	      _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
+	      _react2.default.createElement(
+	        'label',
+	        { htmlFor: 'password' },
+	        'Password'
+	      ),
+	      _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
+	      'Submit'
+	    )
+	  );
+	};
+
+	exports.default = (0, _formInputMixin2.default)(Login, _authActions2.default.login);
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _appActions = __webpack_require__(249);
+
+	var _appActions2 = _interopRequireDefault(_appActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	exports.default = function (InnerComponent, submitCb) {
+	  return function (_React$Component) {
+	    _inherits(_class, _React$Component);
+
+	    function _class(props) {
+	      _classCallCheck(this, _class);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
+
+	      _this.state = {
+	        username: '',
+	        password: ''
+	      };
+	      _this.handleUserInput = _this.handleInput.bind(_this, 'username');
+	      _this.handlePasswordInput = _this.handleInput.bind(_this, 'password');
+	      _this.handleSubmit = _this.handleSubmit.bind(_this);
+	      return _this;
+	    }
+
+	    _createClass(_class, [{
+	      key: 'handleInput',
+	      value: function handleInput(param, evt) {
+	        this.setState(_defineProperty({}, param, evt.target.value));
+	      }
+	    }, {
+	      key: 'handleSubmit',
+	      value: function handleSubmit(evt) {
+	        evt.preventDefault();
+	        submitCb(this.state);
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props, {
+	          handleUserInput: this.handleUserInput,
+	          handlePasswordInput: this.handlePasswordInput,
+	          handleSubmit: this.handleSubmit
+	        }));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react2.default.Component);
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _formInputMixin = __webpack_require__(267);
+
+	var _formInputMixin2 = _interopRequireDefault(_formInputMixin);
+
+	var _authActions = __webpack_require__(230);
+
+	var _authActions2 = _interopRequireDefault(_authActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Signup = function Signup(props) {
+	  return _react2.default.createElement(
+	    'form',
+	    { role: 'form' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'form-group' },
+	      _react2.default.createElement(
+	        'label',
+	        { htmlFor: 'user' },
+	        'Username'
+	      ),
+	      _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
+	      _react2.default.createElement(
+	        'label',
+	        { htmlFor: 'password' },
+	        'Password'
+	      ),
+	      _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
+	      'Submit'
+	    )
+	  );
+	};
+
+	exports.default = (0, _formInputMixin2.default)(Signup, _authActions2.default.signup);
 
 /***/ }
 /******/ ]);
