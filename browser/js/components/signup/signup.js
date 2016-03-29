@@ -4,10 +4,17 @@ import React from 'react';
 import FormInputMixin from '../../mixins/form-input-mixin';
 import actions from '../../actions/auth-actions';
 
+const iconStyle = {
+  height: '10em',
+  width: '100%',
+  margin: '0 auto'
+}
+
 const Signup = (props) => {
-  console.log(props)
   return (
     <form role="form">
+      <h3>Signup</h3>
+      <img src="juke.svg" style={iconStyle} />
       <div className="form-group">
         <label htmlFor="user">Username</label>
         <input type="text" onChange={props.handleUserInput} placeholder="Username" className="form-control" />

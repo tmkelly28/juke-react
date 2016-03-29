@@ -3,6 +3,7 @@
 import AppConstants from '../constants/app-constants';
 import axios from 'axios';
 import {dispatch} from '../dispatchers/app-dispatcher';
+import { browserHistory } from 'react-router';
 
 export default {
   login (credentials) {
@@ -47,6 +48,7 @@ export default {
   logout () {
     dispatch({actionType: AppConstants.LOGOUT_USER})
     return axios.get('/logout')
+      .then(() => browserHistory.push('/login'))
       .catch(console.error);
   }
 

@@ -16,17 +16,27 @@ sidebar {
   background: #303030;
   height: calc(100vh - 56px);
   width: inherit;
-  border-right: 2px solid #555; }
+  border-right: 2px solid #555;
+}
   sidebar section > * {
-    padding: 0 15px; }
+    padding: 0 15px;
+  }
   sidebar .playlist-item {
-    transition: border-left, 0.5s; }
+    transition: border-left, 0.5s;
+  }
     sidebar .playlist-item a {
-      color: #c8c8c8; }
+      color: #c8c8c8;
+    }
       sidebar .playlist-item a:hover {
-        color: white; }
+        color: white;
+      }
     sidebar .playlist-item.active, sidebar .playlist-item:hover {
-      border-left: 3px solid #00bc8c; }
+      border-left: 3px solid #00bc8c;
+    }
+  sidebar section:last-child {
+    position: absolute;
+    bottom: 0;
+  }
 
 footer {
   position: fixed;

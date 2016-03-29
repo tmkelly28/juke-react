@@ -13,6 +13,7 @@ const iconStyle = {
 const Login = (props) => {
   return (
     <form role="form">
+      <h3>Login</h3>
       <img src="juke.svg" style={iconStyle} />
       <div className="form-group">
         <label htmlFor="user">Username</label>
