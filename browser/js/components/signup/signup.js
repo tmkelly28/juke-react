@@ -5,6 +5,7 @@ import FormInputMixin from '../../mixins/form-input-mixin';
 import actions from '../../actions/auth-actions';
 
 const Signup = (props) => {
+  console.log(props)
   return (
     <form role="form">
       <div className="form-group">

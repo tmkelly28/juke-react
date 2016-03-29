@@ -26012,6 +26012,7 @@
 	    'div',
 	    null,
 	    _react2.default.Children.map(props.children, function (child) {
+	      console.log(child);
 	      return _react2.default.cloneElement(child, { user: props.user });
 	    })
 	  );
@@ -28344,6 +28345,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Signup = function Signup(props) {
+	  console.log(props);
 	  return _react2.default.createElement(
 	    'form',
 	    { role: 'form' },

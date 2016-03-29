@@ -16,6 +16,7 @@ const Auth = (props) => {
     <div>
       {
         React.Children.map(props.children, child => {
+          console.log(child)
           return React.cloneElement(child, {user: props.user})
         })
       }
