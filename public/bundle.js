@@ -19780,7 +19780,10 @@
 	        'div',
 	        { className: 'col-xs-10' },
 	        _react2.default.Children.map(props.children, function (child) {
-	          return _react2.default.cloneElement(child, { user: props.user });
+	          return _react2.default.cloneElement(child, {
+	            user: props.user,
+	            authError: props.authError
+	          });
 	        })
 	      ),
 	      _react2.default.createElement(_player2.default, null)
@@ -25003,60 +25006,44 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var toUser = function toUser(res) {
+	  return res.data.user;
+	};
+	var toAlbums = function toAlbums() {
+	  return _reactRouter.browserHistory.push('/albums');
+	};
+	var toLogin = function toLogin() {
+	  return _reactRouter.browserHistory.push('/login');
+	};
+	var authSucceeded = function authSucceeded(user) {
+	  return (0, _appDispatcher.dispatch)({
+	    actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
+	    user: user
+	  });
+	};
+	var authFailed = function authFailed(err) {
+	  return (0, _appDispatcher.dispatch)({
+	    actionType: _appConstants2.default.AUTHENTICATION_FAILED,
+	    err: err
+	  });
+	};
+
 	exports.default = {
 	  login: function login(credentials) {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
-	    return _axios2.default.post('/login', credentials).then(function (res) {
-	      return res.data.user;
-	    }).then(function (user) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
-	        user: user
-	      });
-	    }).catch(function (err) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
-	        err: err
-	      });
-	    });
+	    return _axios2.default.post('/login', credentials).then(toUser).then(authSucceeded).then(toAlbums).catch(authFailed);
 	  },
 	  signup: function signup(credentials) {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
-	    return _axios2.default.post('/signup', credentials).then(function (res) {
-	      return res.data.user;
-	    }).then(function (user) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
-	        user: user
-	      });
-	    }).catch(function (err) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
-	        err: err
-	      });
-	    });
+	    return _axios2.default.post('/signup', credentials).then(toUser).then(authSucceeded).then(toAlbums).catch(authFailed);
 	  },
 	  getSession: function getSession() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
-	    return _axios2.default.get('/session').then(function (res) {
-	      return res.data.user;
-	    }).then(function (user) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_SUCCEEDED,
-	        user: user
-	      });
-	    }).catch(function (err) {
-	      return (0, _appDispatcher.dispatch)({
-	        actionType: _appConstants2.default.AUTHENTICATION_FAILED,
-	        err: err
-	      });
-	    });
+	    return _axios2.default.get('/session').then(toUser).then(authSucceeded).catch(authFailed);
 	  },
 	  logout: function logout() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOGOUT_USER });
-	    return _axios2.default.get('/logout').then(function () {
-	      return _reactRouter.browserHistory.push('/login');
-	    }).catch(console.error);
+	    return _axios2.default.get('/logout').then(toLogin);
 	  }
 	};
 
@@ -27175,7 +27162,8 @@
 
 	function getSession() {
 	  return {
-	    user: _authStore2.default.getUser()
+	    user: _authStore2.default.getUser(),
+	    authError: _authStore2.default.getError()
 	  };
 	}
 
@@ -27184,7 +27172,10 @@
 	    'div',
 	    null,
 	    _react2.default.Children.map(props.children, function (child) {
-	      return _react2.default.cloneElement(child, { user: props.user });
+	      return _react2.default.cloneElement(child, {
+	        user: props.user,
+	        authError: props.authError
+	      });
 	    })
 	  );
 	};
@@ -27300,12 +27291,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var toData = function toData(res) {
+	  return res.data;
+	};
+
 	exports.default = {
 	  getAlbums: function getAlbums() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOADING_ALBUMS });
-	    _axios2.default.get('/api/albums/').then(function (res) {
-	      return res.data;
-	    }).then(function (_albums) {
+	    _axios2.default.get('/api/albums/').then(toData).then(function (_albums) {
 	      var albums = _albums.map(_albumConvert2.default);
 	      (0, _appDispatcher.dispatch)({
 	        actionType: _appConstants2.default.GET_ALBUMS,
@@ -27315,9 +27308,7 @@
 	  },
 	  getAlbumById: function getAlbumById(params) {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOADING_ALBUM });
-	    _axios2.default.get('/api/albums/' + params.albumId).then(function (res) {
-	      return res.data;
-	    }).then(function (album) {
+	    _axios2.default.get('/api/albums/' + params.albumId).then(toData).then(function (album) {
 	      return (0, _albumConvert2.default)(album);
 	    }).then(function (album) {
 	      album.songs = album.songs.map(function (song) {
@@ -27331,9 +27322,7 @@
 	  },
 	  getArtists: function getArtists() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOADING_ARTISTS });
-	    _axios2.default.get('/api/artists/').then(function (res) {
-	      return res.data;
-	    }).then(function (artists) {
+	    _axios2.default.get('/api/artists/').then(toData).then(function (artists) {
 	      return (0, _appDispatcher.dispatch)({
 	        actionType: _appConstants2.default.GET_ARTISTS,
 	        artists: artists
@@ -27434,7 +27423,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _user = null;
+	var _user = null,
+	    _error = null;
 
 	function _setUser() {
 	  var user = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
@@ -27442,10 +27432,20 @@
 	  _user = user;
 	}
 
+	function _setError() {
+	  var error = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+	  _error = error;
+	}
+
 	var AuthStore = Object.assign(_events.EventEmitter.prototype, _storePrototype2.default, {
 	  getUser: function getUser() {
 	    return _user;
 	  },
+	  getError: function getError() {
+	    return _error;
+	  },
+
 
 	  dispatcherIndex: (0, _appDispatcher.register)(function (action) {
 
@@ -27457,9 +27457,11 @@
 	        break;
 	      case _appConstants2.default.AUTHENTICATION_SUCCEEDED:
 	        _setUser(action.user);
+	        _setError();
 	        break;
 	      case _appConstants2.default.AUTHENTICATION_FAILED:
 	        _setUser();
+	        _setError(action.err.data);
 	        break;
 	      case _appConstants2.default.LOGOUT_USER:
 	        _setUser();
@@ -28206,35 +28208,44 @@
 
 	var Login = function Login(props) {
 	  return _react2.default.createElement(
-	    'form',
-	    { role: 'form' },
+	    'div',
+	    null,
 	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Login'
+	      'form',
+	      { role: 'form' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Login'
+	      ),
+	      _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'form-group' },
+	        _react2.default.createElement(
+	          'label',
+	          { htmlFor: 'user' },
+	          'Username'
+	        ),
+	        _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
+	        _react2.default.createElement(
+	          'label',
+	          { htmlFor: 'password' },
+	          'Password'
+	        ),
+	        _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
+	        'Submit'
+	      )
 	    ),
-	    _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
-	    _react2.default.createElement(
+	    props.authError ? _react2.default.createElement(
 	      'div',
-	      { className: 'form-group' },
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'user' },
-	        'Username'
-	      ),
-	      _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'password' },
-	        'Password'
-	      ),
-	      _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
-	    ),
-	    _react2.default.createElement(
-	      'button',
-	      { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
-	      'Submit'
-	    )
+	      { className: 'alert alert-danger' },
+	      props.authError
+	    ) : null
 	  );
 	};
 
@@ -28302,9 +28313,7 @@
 	      key: 'handleSubmit',
 	      value: function handleSubmit(evt) {
 	        evt.preventDefault();
-	        submitCb(this.state).then(function () {
-	          return _reactRouter.browserHistory.push('/albums');
-	        }).catch(console.error);
+	        submitCb(this.state);
 	      }
 	    }, {
 	      key: 'render',
@@ -28353,35 +28362,44 @@
 
 	var Signup = function Signup(props) {
 	  return _react2.default.createElement(
-	    'form',
-	    { role: 'form' },
+	    'div',
+	    null,
 	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Signup'
+	      'form',
+	      { role: 'form' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Signup'
+	      ),
+	      _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'form-group' },
+	        _react2.default.createElement(
+	          'label',
+	          { htmlFor: 'user' },
+	          'Username'
+	        ),
+	        _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
+	        _react2.default.createElement(
+	          'label',
+	          { htmlFor: 'password' },
+	          'Password'
+	        ),
+	        _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
+	        'Submit'
+	      )
 	    ),
-	    _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
-	    _react2.default.createElement(
+	    props.authError ? _react2.default.createElement(
 	      'div',
-	      { className: 'form-group' },
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'user' },
-	        'Username'
-	      ),
-	      _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'password' },
-	        'Password'
-	      ),
-	      _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
-	    ),
-	    _react2.default.createElement(
-	      'button',
-	      { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
-	      'Submit'
-	    )
+	      { className: 'alert alert-danger' },
+	      props.authError
+	    ) : null
 	  );
 	};
 

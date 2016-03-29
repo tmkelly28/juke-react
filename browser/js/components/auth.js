@@ -7,7 +7,8 @@ import AuthStore from '../stores/auth-store';
 
 function getSession () {
   return {
-    user: AuthStore.getUser()
+    user: AuthStore.getUser(),
+    authError: AuthStore.getError()
   }
 }
 
@@ -16,7 +17,10 @@ const Auth = (props) => {
     <div>
       {
         React.Children.map(props.children, child => {
-          return React.cloneElement(child, {user: props.user})
+          return React.cloneElement(child, {
+            user: props.user,
+            authError: props.authError
+          })
         })
       }
     </div>

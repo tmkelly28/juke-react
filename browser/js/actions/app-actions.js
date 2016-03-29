@@ -7,11 +7,13 @@ import albumConvert from '../utils/album-convert';
 import songConvert from '../utils/song-convert';
 import errorHandler from '../utils/error-handler';
 
+const toData = (res) => res.data;
+
 export default {
   getAlbums () {
     dispatch({ actionType: AppConstants.LOADING_ALBUMS });
     axios.get('/api/albums/')
-      .then(res => res.data)
+      .then(toData)
       .then(_albums => {
         let albums = _albums.map(albumConvert);
         dispatch({
@@ -24,7 +26,7 @@ export default {
   getAlbumById (params) {
     dispatch({ actionType: AppConstants.LOADING_ALBUM });
     axios.get(`/api/albums/${params.albumId}`)
-      .then(res => res.data)
+      .then(toData)
       .then(album => albumConvert(album))
       .then(album => {
         album.songs = album.songs.map(song => songConvert(song, album.artists));
@@ -38,7 +40,7 @@ export default {
   getArtists () {
     dispatch({ actionType: AppConstants.LOADING_ARTISTS });
     axios.get('/api/artists/')
-      .then(res => res.data)
+      .then(toData)
       .then(artists => dispatch({
         actionType: AppConstants.GET_ARTISTS,
         artists

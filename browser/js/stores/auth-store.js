@@ -5,10 +5,15 @@ import {register} from '../dispatchers/app-dispatcher';
 import AppConstants from '../constants/app-constants';
 import StorePrototype from './store-prototype';
 
-let _user = null;
+let _user = null,
+    _error = null;
 
 function _setUser (user=null) {
   _user = user;
+}
+
+function _setError (error=null) {
+  _error = error;
 }
 
 const AuthStore = Object.assign(EventEmitter.prototype, StorePrototype, {
@@ -16,6 +21,10 @@ const AuthStore = Object.assign(EventEmitter.prototype, StorePrototype, {
   getUser () {
     return _user;
   },
+  getError () {
+    return _error;
+  },
+
   dispatcherIndex: register(action => {
 
     let changed = true;
@@ -26,9 +35,11 @@ const AuthStore = Object.assign(EventEmitter.prototype, StorePrototype, {
         break;
       case AppConstants.AUTHENTICATION_SUCCEEDED:
         _setUser(action.user);
+        _setError();
         break;
       case AppConstants.AUTHENTICATION_FAILED:
         _setUser();
+        _setError(action.err.data);
         break;
       case AppConstants.LOGOUT_USER:
         _setUser();

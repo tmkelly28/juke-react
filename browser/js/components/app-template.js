@@ -13,7 +13,10 @@ export default (props) => {
         <div className="col-xs-10">
           {
             React.Children.map(props.children, child => {
-              return React.cloneElement(child, {user: props.user})
+              return React.cloneElement(child, {
+                user: props.user,
+                authError: props.authError
+              })
             })
           }
         </div>

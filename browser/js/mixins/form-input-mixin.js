@@ -2,7 +2,7 @@
 
 import React from 'react';
 import actions from '../actions/app-actions';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 
 export default (InnerComponent, submitCb) => class extends React.Component {
 
@@ -23,9 +23,7 @@ export default (InnerComponent, submitCb) => class extends React.Component {
 
   handleSubmit (evt) {
     evt.preventDefault();
-    submitCb(this.state)
-      .then(() => browserHistory.push('/albums'))
-      .catch(console.error);
+    submitCb(this.state);
   }
 
   render () {
