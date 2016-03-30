@@ -9,18 +9,9 @@ export default (props) => {
   return (
     <div className="container-fluid">
       <Auth>
-        <Sidebar></Sidebar>
-        <div className="col-xs-10">
-          {
-            React.Children.map(props.children, child => {
-              return React.cloneElement(child, {
-                user: props.user,
-                authError: props.authError
-              })
-            })
-          }
-        </div>
-        <Player></Player>
+        <Sidebar />
+        {props.children}
+        <Player />
       </Auth>
     </div>
   );

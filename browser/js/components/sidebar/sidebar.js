@@ -4,53 +4,51 @@ import React from 'react';
 import {Link} from 'react-router';
 import actions from '../../actions/auth-actions';
 
-export default class Sidebar extends React.Component {
-  render () {
-    return (
-      <div className="col-xs-2">
-        <sidebar>
-          <section>
-            <h5>
-              {
-                this.props.user ? this.props.user.username : null
-              }
-            </h5>
-          </section>
-          <section>
-            <h5 className="playlist-item">
+export default (props) => {
+  return (
+    <div className="col-xs-2">
+      <sidebar>
+        <section>
+          <h5>
             {
-              !this.props.user ? <Link to="/login">LOGIN</Link> : null
+              props.user ? props.user.username : null
             }
-            </h5>
-          </section>
-          <section>
-            <h5 className="playlist-item">
-            {
-              !this.props.user ? <Link to="/signup">SIGNUP</Link> : null
-            }
-            </h5>
-          </section>
-          <section>
-            <h5 className="playlist-item">
-            {
-              this.props.user ? <Link to="/albums">ALBUMS</Link> : null
-            }
-            </h5>
-          </section>
-          <section>
-            <h5 className="playlist-item">
-            {
-              this.props.user ? <Link to="/artists">ARTISTS</Link> : null
-            }
-            </h5>
-          </section>
-          <section>
+          </h5>
+        </section>
+        <section>
+          <h5 className="playlist-item">
           {
-            this.props.user ? <h5 className="playlist-item" onClick={actions.logout}>LOGOUT</h5> : null
+            !props.user ? <Link to="/login">LOGIN</Link> : null
           }
-          </section>
-        </sidebar>
-      </div>
-    );
-  }
+          </h5>
+        </section>
+        <section>
+          <h5 className="playlist-item">
+          {
+            !props.user ? <Link to="/signup">SIGNUP</Link> : null
+          }
+          </h5>
+        </section>
+        <section>
+          <h5 className="playlist-item">
+          {
+            props.user ? <Link to="/albums">ALBUMS</Link> : null
+          }
+          </h5>
+        </section>
+        <section>
+          <h5 className="playlist-item">
+          {
+            props.user ? <Link to="/artists">ARTISTS</Link> : null
+          }
+          </h5>
+        </section>
+        <section>
+        {
+          props.user ? <h5 className="playlist-item" onClick={actions.logout}>LOGOUT</h5> : null
+        }
+        </section>
+      </sidebar>
+    </div>
+  );
 }

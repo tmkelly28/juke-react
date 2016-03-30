@@ -19776,16 +19776,7 @@
 	      _auth2.default,
 	      null,
 	      _react2.default.createElement(_sidebar2.default, null),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-xs-10' },
-	        _react2.default.Children.map(props.children, function (child) {
-	          return _react2.default.cloneElement(child, {
-	            user: props.user,
-	            authError: props.authError
-	          });
-	        })
-	      ),
+	      props.children,
 	      _react2.default.createElement(_player2.default, null)
 	    )
 	  );
@@ -19801,8 +19792,6 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -19815,109 +19804,86 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Sidebar = function (_React$Component) {
-	  _inherits(Sidebar, _React$Component);
-
-	  function Sidebar() {
-	    _classCallCheck(this, Sidebar);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Sidebar).apply(this, arguments));
-	  }
-
-	  _createClass(Sidebar, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'col-xs-2' },
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'col-xs-2' },
+	    _react2.default.createElement(
+	      'sidebar',
+	      null,
+	      _react2.default.createElement(
+	        'section',
+	        null,
 	        _react2.default.createElement(
-	          'sidebar',
+	          'h5',
 	          null,
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              this.props.user ? this.props.user.username : null
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              { className: 'playlist-item' },
-	              !this.props.user ? _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login' },
-	                'LOGIN'
-	              ) : null
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              { className: 'playlist-item' },
-	              !this.props.user ? _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/signup' },
-	                'SIGNUP'
-	              ) : null
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              { className: 'playlist-item' },
-	              this.props.user ? _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/albums' },
-	                'ALBUMS'
-	              ) : null
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              { className: 'playlist-item' },
-	              this.props.user ? _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/artists' },
-	                'ARTISTS'
-	              ) : null
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'section',
-	            null,
-	            this.props.user ? _react2.default.createElement(
-	              'h5',
-	              { className: 'playlist-item', onClick: _authActions2.default.logout },
-	              'LOGOUT'
-	            ) : null
-	          )
+	          props.user ? props.user.username : null
 	        )
-	      );
-	    }
-	  }]);
-
-	  return Sidebar;
-	}(_react2.default.Component);
-
-	exports.default = Sidebar;
+	      ),
+	      _react2.default.createElement(
+	        'section',
+	        null,
+	        _react2.default.createElement(
+	          'h5',
+	          { className: 'playlist-item' },
+	          !props.user ? _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/login' },
+	            'LOGIN'
+	          ) : null
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'section',
+	        null,
+	        _react2.default.createElement(
+	          'h5',
+	          { className: 'playlist-item' },
+	          !props.user ? _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/signup' },
+	            'SIGNUP'
+	          ) : null
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'section',
+	        null,
+	        _react2.default.createElement(
+	          'h5',
+	          { className: 'playlist-item' },
+	          props.user ? _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/albums' },
+	            'ALBUMS'
+	          ) : null
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'section',
+	        null,
+	        _react2.default.createElement(
+	          'h5',
+	          { className: 'playlist-item' },
+	          props.user ? _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/artists' },
+	            'ARTISTS'
+	          ) : null
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'section',
+	        null,
+	        props.user ? _react2.default.createElement(
+	          'h5',
+	          { className: 'playlist-item', onClick: _authActions2.default.logout },
+	          'LOGOUT'
+	        ) : null
+	      )
+	    )
+	  );
+	};
 
 /***/ },
 /* 162 */
@@ -25004,6 +24970,10 @@
 
 	var _reactRouter = __webpack_require__(162);
 
+	var _errorHandler = __webpack_require__(252);
+
+	var _errorHandler2 = _interopRequireDefault(_errorHandler);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var toUser = function toUser(res) {
@@ -25039,7 +25009,7 @@
 	  },
 	  getSession: function getSession() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.AUTHENTICATE_LOGIN });
-	    return _axios2.default.get('/session').then(toUser).then(authSucceeded).catch(authFailed);
+	    return _axios2.default.get('/session').then(toUser).then(authSucceeded).catch(_errorHandler2.default);
 	  },
 	  logout: function logout() {
 	    (0, _appDispatcher.dispatch)({ actionType: _appConstants2.default.LOGOUT_USER });
@@ -27453,7 +27423,7 @@
 
 	    switch (action.actionType) {
 	      case _appConstants2.default.AUTHENTICATE_LOGIN:
-	        _setUser();
+	        // _setUser();
 	        break;
 	      case _appConstants2.default.AUTHENTICATION_SUCCEEDED:
 	        _setUser(action.user);
@@ -27523,7 +27493,7 @@
 
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'col-xs-10' },
 	    _react2.default.createElement(
 	      'h3',
 	      null,
@@ -27708,7 +27678,7 @@
 	var Album = function Album(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'album' },
+	    { className: 'album col-xs-10' },
 	    _react2.default.createElement(_albumHeader2.default, { album: props.album }),
 	    _react2.default.createElement(_songList2.default, { songs: props.album.songs })
 	  );
@@ -27917,7 +27887,7 @@
 	var Artists = function Artists(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'col-xs-10' },
 	    _react2.default.createElement(
 	      'h3',
 	      null,
@@ -28059,7 +28029,7 @@
 	var Artist = function Artist(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'col-xs-10' },
 	    _react2.default.createElement(
 	      'h3',
 	      null,
@@ -28209,7 +28179,7 @@
 	var Login = function Login(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'col-xs-10' },
 	    _react2.default.createElement(
 	      'form',
 	      { role: 'form' },
@@ -28363,7 +28333,7 @@
 	var Signup = function Signup(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'col-xs-10' },
 	    _react2.default.createElement(
 	      'form',
 	      { role: 'form' },

@@ -14,7 +14,7 @@ function getArtists () {
 
 const Artists = (props) => {
   return (
-    <div>
+    <div className="col-xs-10">
       <h3>Artists</h3>
       <div className="list-group">
         {

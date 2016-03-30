@@ -31,7 +31,7 @@ const AuthStore = Object.assign(EventEmitter.prototype, StorePrototype, {
 
     switch (action.actionType) {
       case AppConstants.AUTHENTICATE_LOGIN:
-        _setUser();
+        // _setUser();
         break;
       case AppConstants.AUTHENTICATION_SUCCEEDED:
         _setUser(action.user);

@@ -15,7 +15,7 @@ function getAlbum () {
 
 const Album = (props) => {
   return (
-    <div className="album">
+    <div className="album col-xs-10">
       <AlbumHeader album={props.album} />
       <SongList songs={props.album.songs} />
     </div>

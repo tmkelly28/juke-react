@@ -16,7 +16,7 @@ function getAlbums () {
 const Albums = (props) => {
 
   return (
-    <div>
+    <div className="col-xs-10">
       <h3>Albums</h3>
       <div className="row">
         {

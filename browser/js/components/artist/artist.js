@@ -14,7 +14,7 @@ function getArtist () {
 
 const Artist = (props) => {
   return (
-    <div>
+    <div className="col-xs-10">
       <h3>{ props.artist.name }</h3>
       <ul className="nav nav-tabs">
         <li>

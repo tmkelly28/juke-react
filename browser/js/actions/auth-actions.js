@@ -4,6 +4,7 @@ import AppConstants from '../constants/app-constants';
 import axios from 'axios';
 import {dispatch} from '../dispatchers/app-dispatcher';
 import {browserHistory} from 'react-router';
+import errorHandler from '../utils/error-handler';
 
 const toUser = (res) => res.data.user;
 const toAlbums = () => browserHistory.push('/albums');
@@ -39,7 +40,7 @@ export default {
     return axios.get('/session')
       .then(toUser)
       .then(authSucceeded)
-      .catch(authFailed);
+      .catch(errorHandler);
   },
   logout () {
     dispatch({actionType: AppConstants.LOGOUT_USER})

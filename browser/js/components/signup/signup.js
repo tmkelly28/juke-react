@@ -12,7 +12,7 @@ const iconStyle = {
 
 const Signup = (props) => {
   return (
-    <div>
+    <div className="col-xs-10">
       <form role="form">
         <h3>Signup</h3>
         <img src="juke.svg" style={iconStyle} />
