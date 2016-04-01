@@ -19758,11 +19758,11 @@
 
 	var _sidebar2 = _interopRequireDefault(_sidebar);
 
-	var _player = __webpack_require__(242);
+	var _player = __webpack_require__(243);
 
 	var _player2 = _interopRequireDefault(_player);
 
-	var _auth = __webpack_require__(247);
+	var _auth = __webpack_require__(248);
 
 	var _auth2 = _interopRequireDefault(_auth);
 
@@ -24970,7 +24970,7 @@
 
 	var _reactRouter = __webpack_require__(162);
 
-	var _errorHandler = __webpack_require__(252);
+	var _errorHandler = __webpack_require__(242);
 
 	var _errorHandler2 = _interopRequireDefault(_errorHandler);
 
@@ -26475,6 +26475,20 @@
 
 /***/ },
 /* 242 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = errorHandler;
+	function errorHandler(err) {
+	  console.error(err);
+	}
+
+/***/ },
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26489,11 +26503,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _playerStore = __webpack_require__(243);
+	var _playerStore = __webpack_require__(244);
 
 	var _playerStore2 = _interopRequireDefault(_playerStore);
 
-	var _playerActions = __webpack_require__(245);
+	var _playerActions = __webpack_require__(246);
 
 	var _playerActions2 = _interopRequireDefault(_playerActions);
 
@@ -26611,7 +26625,7 @@
 	exports.default = Player;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26620,7 +26634,7 @@
 	  value: true
 	});
 
-	var _events = __webpack_require__(244);
+	var _events = __webpack_require__(245);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -26630,11 +26644,11 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
-	var _playerActions = __webpack_require__(245);
+	var _playerActions = __webpack_require__(246);
 
 	var _playerActions2 = _interopRequireDefault(_playerActions);
 
-	var _storePrototype = __webpack_require__(246);
+	var _storePrototype = __webpack_require__(247);
 
 	var _storePrototype2 = _interopRequireDefault(_storePrototype);
 
@@ -26736,7 +26750,7 @@
 	exports.default = PlayerStore;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -27040,7 +27054,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27080,7 +27094,7 @@
 	};
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27103,7 +27117,7 @@
 	};
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27120,7 +27134,7 @@
 
 	var _authActions2 = _interopRequireDefault(_authActions);
 
-	var _storeWatchMixin = __webpack_require__(248);
+	var _storeWatchMixin = __webpack_require__(249);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
@@ -27153,7 +27167,7 @@
 	exports.default = (0, _storeWatchMixin2.default)(Auth, _authStore2.default, getSession, _authActions2.default.getSession);
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27170,7 +27184,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -27228,7 +27242,7 @@
 	};
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27247,15 +27261,15 @@
 
 	var _appDispatcher = __webpack_require__(238);
 
-	var _albumConvert = __webpack_require__(250);
+	var _albumConvert = __webpack_require__(251);
 
 	var _albumConvert2 = _interopRequireDefault(_albumConvert);
 
-	var _songConvert = __webpack_require__(251);
+	var _songConvert = __webpack_require__(252);
 
 	var _songConvert2 = _interopRequireDefault(_songConvert);
 
-	var _errorHandler = __webpack_require__(252);
+	var _errorHandler = __webpack_require__(242);
 
 	var _errorHandler2 = _interopRequireDefault(_errorHandler);
 
@@ -27317,7 +27331,7 @@
 	};
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27332,7 +27346,7 @@
 	}
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27356,20 +27370,6 @@
 	};
 
 /***/ },
-/* 252 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = errorHandler;
-	function errorHandler(err) {
-	  console.error(err);
-	}
-
-/***/ },
 /* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27379,7 +27379,7 @@
 	  value: true
 	});
 
-	var _events = __webpack_require__(244);
+	var _events = __webpack_require__(245);
 
 	var _appDispatcher = __webpack_require__(238);
 
@@ -27387,7 +27387,7 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
-	var _storePrototype = __webpack_require__(246);
+	var _storePrototype = __webpack_require__(247);
 
 	var _storePrototype2 = _interopRequireDefault(_storePrototype);
 
@@ -27465,7 +27465,7 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _storeWatchMixin = __webpack_require__(248);
+	var _storeWatchMixin = __webpack_require__(249);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
@@ -27477,7 +27477,7 @@
 
 	var _albumStore2 = _interopRequireDefault(_albumStore);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -27570,7 +27570,7 @@
 	  value: true
 	});
 
-	var _events = __webpack_require__(244);
+	var _events = __webpack_require__(245);
 
 	var _appDispatcher = __webpack_require__(238);
 
@@ -27578,7 +27578,7 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
-	var _storePrototype = __webpack_require__(246);
+	var _storePrototype = __webpack_require__(247);
 
 	var _storePrototype2 = _interopRequireDefault(_storePrototype);
 
@@ -27651,7 +27651,7 @@
 
 	var _albumStore2 = _interopRequireDefault(_albumStore);
 
-	var _storeWatchMixin = __webpack_require__(248);
+	var _storeWatchMixin = __webpack_require__(249);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
@@ -27663,7 +27663,7 @@
 
 	var _albumHeader2 = _interopRequireDefault(_albumHeader);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -27762,11 +27762,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _playerActions = __webpack_require__(245);
+	var _playerActions = __webpack_require__(246);
 
 	var _playerActions2 = _interopRequireDefault(_playerActions);
 
-	var _playerStore = __webpack_require__(243);
+	var _playerStore = __webpack_require__(244);
 
 	var _playerStore2 = _interopRequireDefault(_playerStore);
 
@@ -27862,7 +27862,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _storeWatchMixin = __webpack_require__(248);
+	var _storeWatchMixin = __webpack_require__(249);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
@@ -27870,7 +27870,7 @@
 
 	var _artistStore2 = _interopRequireDefault(_artistStore);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -27923,7 +27923,7 @@
 	  value: true
 	});
 
-	var _events = __webpack_require__(244);
+	var _events = __webpack_require__(245);
 
 	var _appDispatcher = __webpack_require__(238);
 
@@ -27931,7 +27931,7 @@
 
 	var _appConstants2 = _interopRequireDefault(_appConstants);
 
-	var _storePrototype = __webpack_require__(246);
+	var _storePrototype = __webpack_require__(247);
 
 	var _storePrototype2 = _interopRequireDefault(_storePrototype);
 
@@ -28004,7 +28004,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _storeWatchMixin = __webpack_require__(248);
+	var _storeWatchMixin = __webpack_require__(249);
 
 	var _storeWatchMixin2 = _interopRequireDefault(_storeWatchMixin);
 
@@ -28012,7 +28012,7 @@
 
 	var _artistStore2 = _interopRequireDefault(_artistStore);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -28170,56 +28170,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var iconStyle = {
-	  height: '10em',
-	  width: '100%',
-	  margin: '0 auto'
-	};
-
-	var Login = function Login(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'col-xs-10' },
-	    _react2.default.createElement(
-	      'form',
-	      { role: 'form' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Login'
-	      ),
-	      _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'form-group' },
-	        _react2.default.createElement(
-	          'label',
-	          { htmlFor: 'user' },
-	          'Username'
-	        ),
-	        _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
-	        _react2.default.createElement(
-	          'label',
-	          { htmlFor: 'password' },
-	          'Password'
-	        ),
-	        _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
-	        'Submit'
-	      )
-	    ),
-	    props.authError ? _react2.default.createElement(
-	      'div',
-	      { className: 'alert alert-danger' },
-	      props.authError
-	    ) : null
-	  );
-	};
-
-	exports.default = (0, _formInputMixin2.default)(Login, _authActions2.default.login);
+	exports.default = (0, _formInputMixin2.default)('Login', _authActions2.default.login);
 
 /***/ },
 /* 267 */
@@ -28231,15 +28182,13 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _appActions = __webpack_require__(249);
+	var _appActions = __webpack_require__(250);
 
 	var _appActions2 = _interopRequireDefault(_appActions);
 
@@ -28255,7 +28204,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	exports.default = function (InnerComponent, submitCb) {
+	exports.default = function (type, submitCb) {
 	  return function (_React$Component) {
 	    _inherits(_class, _React$Component);
 
@@ -28288,11 +28237,53 @@
 	    }, {
 	      key: 'render',
 	      value: function render() {
-	        return _react2.default.createElement(InnerComponent, _extends({}, this.state, this.props, {
-	          handleUserInput: this.handleUserInput,
-	          handlePasswordInput: this.handlePasswordInput,
-	          handleSubmit: this.handleSubmit
-	        }));
+
+	        var iconStyle = {
+	          height: '10em',
+	          width: '100%',
+	          margin: '0 auto'
+	        };
+
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-10' },
+	          _react2.default.createElement(
+	            'form',
+	            { role: 'form' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              type
+	            ),
+	            _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'user' },
+	                'Username'
+	              ),
+	              _react2.default.createElement('input', { type: 'text', onChange: this.handleUserInput, placeholder: 'Username', className: 'form-control' }),
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'password' },
+	                'Password'
+	              ),
+	              _react2.default.createElement('input', { type: 'password', onChange: this.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'submit', onClick: this.handleSubmit, className: 'btn btn-default' },
+	              'Submit'
+	            )
+	          ),
+	          this.props.authError ? _react2.default.createElement(
+	            'div',
+	            { className: 'alert alert-danger' },
+	            this.props.authError
+	          ) : null
+	        );
 	      }
 	    }]);
 
@@ -28324,56 +28315,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var iconStyle = {
-	  height: '10em',
-	  width: '100%',
-	  margin: '0 auto'
-	};
-
-	var Signup = function Signup(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'col-xs-10' },
-	    _react2.default.createElement(
-	      'form',
-	      { role: 'form' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Signup'
-	      ),
-	      _react2.default.createElement('img', { src: 'juke.svg', style: iconStyle }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'form-group' },
-	        _react2.default.createElement(
-	          'label',
-	          { htmlFor: 'user' },
-	          'Username'
-	        ),
-	        _react2.default.createElement('input', { type: 'text', onChange: props.handleUserInput, placeholder: 'Username', className: 'form-control' }),
-	        _react2.default.createElement(
-	          'label',
-	          { htmlFor: 'password' },
-	          'Password'
-	        ),
-	        _react2.default.createElement('input', { type: 'password', onChange: props.handlePasswordInput, placeholder: 'Password', className: 'form-control' })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { type: 'submit', onClick: props.handleSubmit, className: 'btn btn-default' },
-	        'Submit'
-	      )
-	    ),
-	    props.authError ? _react2.default.createElement(
-	      'div',
-	      { className: 'alert alert-danger' },
-	      props.authError
-	    ) : null
-	  );
-	};
-
-	exports.default = (0, _formInputMixin2.default)(Signup, _authActions2.default.signup);
+	exports.default = (0, _formInputMixin2.default)('Signup', _authActions2.default.signup);
 
 /***/ }
 /******/ ]);
