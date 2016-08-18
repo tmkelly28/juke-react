@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React from 'react';
 import AlbumStore from '../../stores/album-store';
@@ -10,7 +10,7 @@ import actions from '../../actions/app-actions';
 function getAlbum () {
   return {
     album: AlbumStore.getAlbum()
-  }
+  };
 }
 
 const Album = (props) => {

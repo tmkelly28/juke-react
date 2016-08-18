@@ -5,7 +5,7 @@
   "main": "server/start.js",
   "scripts": {
     "start": "webpack -w & nodemon --watch server -e js,html server/start.js",
-    "test": "node_modules/.bin/testem"
+    "test": "node_modules/.bin/jest"
   },
   "dependencies": {
     "axios": "^0.9.1",
@@ -40,8 +40,11 @@
     "webpack": "^1.12.13"
   },
   "devDependencies": {
+    "babel-jest": "^10.0.1",
+    "babel-polyfill": "^6.7.4",
     "chai": "^3.3.0",
     "chai-spies": "^0.7.1",
+    "jest-cli": "^0.10.0",
     "testem": "^0.9.7"
   }
 }
